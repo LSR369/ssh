@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:mvc="http://www.springframework.org/schema/mvc"
+   xmlns:p="http://www.springframework.org/schema/p"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:tx="http://www.springframework.org/schema/tx"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+	<!-- 启动mvc注解驱动 -->
+	<mvc:annotation-driven/>
+	<!-- 不操作静态资源：遇到错误，不在页面爆出，直接显示404页面 -->
+	<mvc:default-servlet-handler/>
+	
+	<!-- 启动自动扫描该包下的所有bean 
+	                          在springmvc是spring的子容器，所以只用扫描controller的注解就可以了（子可以访问父的，但是父的不可以访问子的） -->
+	 
+	<context:component-scan base-package="cn.lishaoran.controller" />
+
+
+
+<!-- 对模型视图名称的解析，在请求时模型视图名称添加前后缀（前缀是从控制器里返回的视图的父目录，
+                        此处配置的是让容器在WEB-INF/view/下找寻对应的视图；后缀是给视图名称追加后缀名，此处配置的是jsp后缀） -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/jsp/user/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+	
+
+</beans>

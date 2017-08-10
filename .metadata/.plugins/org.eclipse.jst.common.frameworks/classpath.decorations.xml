@@ -1,0 +1,7 @@
+<classpath>
+  <container id="SSH-demo!org.eclipse.jst.j2ee.internal.web.container">
+    <entry id="G:/学习项目实践/SSH--有小例子/SSH-demo/WebContent/WEB-INF/lib/spring-orm-4.2.3.RELEASE.jar">
+      <source-attachment-path>C:/Users/ALWZ/.m2/repository/org/springframework/spring-orm/4.2.3.RELEASE/spring-orm-4.2.3.RELEASE-sources.jar</source-attachment-path>
+    </entry>
+  </container>
+</classpath>

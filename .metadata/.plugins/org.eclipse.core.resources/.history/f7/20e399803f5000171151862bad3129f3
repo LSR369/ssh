@@ -1,0 +1,31 @@
+package Test;
+
+import static org.junit.Assert.*;
+
+import javax.annotation.Resource;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import cn.lishaoran.service.UserService;
+@ContextConfiguration(locations = { "classpath*:/spring*.xml"})
+//@ContextConfiguration(locations = {
+//"classpath*:/conf/applicationContext*.xml",
+//"classpath*:/META-INF/*-service-reference.xml" })
+@ActiveProfiles("local")
+//@ActiveProfiles("development")
+
+public class testdemo {
+	@Resource(name="userService")
+	private UserService userService;
+	
+	@Test
+	public void test() {
+		int a=userService.userCount();
+		System.out.println(a);
+	}
+
+}

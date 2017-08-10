@@ -1,0 +1,2 @@
+2017-06-26 16:32:26,334 [Worker-24] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/org/springframework/spring-orm/4.2.3.RELEASE/spring-orm-4.2.3.RELEASE-sources.jar
+2017-06-26 16:32:29,780 [Worker-24] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/org/springframework/spring-orm/4.2.3.RELEASE/spring-orm-4.2.3.RELEASE-sources.jar

@@ -1,0 +1,21 @@
+package Test;
+
+import static org.junit.Assert.*;
+
+import javax.annotation.Resource;
+
+import org.junit.Test;
+
+import cn.lishaoran.service.UserService;
+
+public class testdemo {
+	@Resource(name="userService")
+	private UserService userService;
+	
+	@Test
+	public void test() {
+		int a=userService.userCount();
+		System.out.println(a);
+	}
+
+}

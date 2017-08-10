@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+                    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+                    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+                    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+     
+     <!-- 声明事务管理器 -->
+     <bean id="myHibTxManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+     	<property name="sessionFactory" ref="sessionFactory"/>
+     </bean> 
+     <!-- 定义事务执行的规则和通知 -->
+     <tx:advice id="tx_Advice" transaction-manager="myHibTxManager">
+     	<tx:attributes>
+     		<!-- SUPPORTS：如果事务存在，支持事务，顾若不存在，则非事务的执行 -->
+     		<tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+     		<tx:method name="load*" propagation="SUPPORTS" read-only="true"/>
+     		<tx:method name="search*" propagation="SUPPORTS" read-only="true"/>
+     		<!-- REQUIRED：如果存在一个事务，则支持事务，如果没有则开启事务 
+     		        给除上外的所有方法执行事务-->
+     		<tx:method name="*" propagation="REQUIRED" read-only="true"/>
+     		
+     	</tx:attributes>
+     </tx:advice>   
+     <aop:config>
+     	<!-- 对cn.lishaoran包下所有类的方法都应用事务规则 -->
+     	<aop:pointcut id="liMethods" expression="execution(* cn.lishaoran.service.*.*(..))"/>
+     	<!-- 将事务通知和切面组合 -->
+     	<aop:advisor advice-ref="tx_Advice" pointcut-ref="liMethods"/>
+     </aop:config>
+     
+     
+     <!-- 数据库连接池-->
+     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+     	<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+     	<property name="url" value="jdbc:mysql://192.168.1.199:3306/ericali"/>
+     	<property name="username" value="root"/>
+     	<property name="password" value="root"/>
+     </bean>          
+          
+          
+     <!-- 配置sessionFactory -->      
+     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+     	<property name="dataSource" ref="dataSource"/>
+     	<!-- 配置扫描实体包 -->
+     	<property name="packagesToScan">
+     		<list>
+     			<!-- 可以写多个包 -->
+     			<value>cn.lishaoran.entity</value>
+     		</list>
+     	</property>
+     	<property name="hibernateProperties">
+     		<props>
+     			<prop key="hibernate.show_sql">true</prop><!-- 配置显示sql -->
+     		</props>
+     	</property>
+     </bean>
+                    
+</beans>
